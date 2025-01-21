@@ -6,6 +6,7 @@
     <head>
         <title>STKY - Main</title>
         <link rel="stylesheet" href="../styles.css">
+        <script src="noteBehavior.js"></script> 
     </head>
     <body>
         <header>
@@ -20,9 +21,10 @@
         </header>
         <div id = "board">
             <div id = "emptyfield">
-                <image class = "icon" id ="plusicon" src="../Icons/plus.svg"></image>
+                <image class = "icon plusicon" id ="plusempty" src="../Icons/plus.svg" onclick = "document.getElementById('emptyfield').style.display = 'none'; document.getElementById('plusnormal').style.display = 'inline-block'; addNote();"></image>
                 <h2>Click "+" to add a note. </h2>
             </div>
+            <image class = "icon plusicon" id ="plusnormal" src="../Icons/plus.svg" onclick = "addNote()" style = "display: none;"></image>
         </div>
     </body>
 </html>
