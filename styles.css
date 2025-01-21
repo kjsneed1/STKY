@@ -15,6 +15,10 @@ body
     margin:0;
 }
 
+.icon
+{
+    filter: invert(79%) sepia(0%) saturate(1820%) hue-rotate(207deg) brightness(108%) contrast(91%); /* #d3d3d3 */
+}
 
 /* Header Design */
 header
@@ -22,15 +26,19 @@ header
     margin:0;
     background-color: #b9b9b9;
     display:inline-flex;
+    min-width: 100vw;
+    user-select: none;
 }
 header div
 {
-    min-width: 25vw;
-    padding:10px;
+    min-width: 25%;
+    /*padding:10px;*/
 }
 h1
 {
     margin:0;
+    padding:10px;
+    font-weight: 200;
 }
 #header1
 {
@@ -66,4 +74,27 @@ h1
     border:solid 2px #404040;
     min-height:400px;
     border-radius:10px;
+}
+
+#emptyfield
+{
+    text-align: center;
+    margin-top: 180px;
+}
+
+#emptyfield h2
+{
+    font-weight: 200;
+    user-select:none;
+}
+
+#plusicon
+{
+    max-width:40px;
+}
+
+#plusicon:hover
+{
+    filter: invert(69%) sepia(0%) saturate(2118%) hue-rotate(184deg) brightness(90%) contrast(104%); /* #a0a0a0 */
+    cursor: pointer;
 }
