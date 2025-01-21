@@ -81,26 +81,58 @@ h1
 
 #emptyfield
 {
+    display: inline-block;
     text-align: center;
-    margin-top: 180px;
+    margin: 23px;
+    min-width:360px;
+    height:360px;
+    border-radius: 10px;
+    background-color: #2e2e2e;
+}
+
+#plusfield
+{
+    display:inline-block;
+    min-width: 360px;
+    min-height: 360px;
+    max-width: 360px;
+    margin:20px;
+    border-radius: 10px;
+    text-align: center;
+    vertical-align: top;
+    background-color: #2e2e2e;
+}
+
+#emptyfield:hover
+{
+    background-color: #2b2b2b;
+    cursor: pointer;
+}
+
+#plusfield:hover
+{
+    background-color: #2b2b2b;
+    cursor: pointer;
 }
 
 #emptyfield h2
 {
     font-weight: 200;
+    font-size: larger;
     user-select:none;
 }
 
 .plusicon
 {
     max-width:40px;
+    margin-top: 140px;
 }
 
-.plusicon:hover
+#plusnormal 
 {
-    filter: invert(69%) sepia(0%) saturate(2118%) hue-rotate(184deg) brightness(90%) contrast(104%); /* #a0a0a0 */
-    cursor: pointer;
+    margin-top: 150px;
 }
+
 
 /* Note styling */
 .note
@@ -114,6 +146,7 @@ h1
     border: solid 3px #ffaec9;
     border-radius: 10px;
     text-align: center;
+    vertical-align: top;
 }
 
 .note .grabber

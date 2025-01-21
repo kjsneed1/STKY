@@ -20,11 +20,13 @@
             <div id = "header4"></div>
         </header>
         <div id = "board">
-            <div id = "emptyfield">
-                <image class = "icon plusicon" id ="plusempty" src="../Icons/plus.svg" onclick = "document.getElementById('emptyfield').style.display = 'none'; document.getElementById('plusnormal').style.display = 'inline-block'; addNote();"></image>
+            <div id = "emptyfield" onclick = "document.getElementById('emptyfield').style.display = 'none'; document.getElementById('plusfield').style.display = 'inline-block'; addNote();">
+                <image class = "icon plusicon" id ="plusempty" src="../Icons/plus.svg"></image>
                 <h2>Click "+" to add a note. </h2>
             </div>
-            <image class = "icon plusicon" id ="plusnormal" src="../Icons/plus.svg" onclick = "addNote()" style = "display: none;"></image>
+            <div id = "plusfield" onclick = "addNote()" style = "display: none;">
+                <image class = "icon plusicon" id ="plusnormal" src="../Icons/plus.svg"></image>
+            </div>
         </div>
     </body>
 </html>
