@@ -181,10 +181,10 @@ h1
 
 .note .notetitle
 {
-    display:inline-block;
+    display: inline-block;
     min-height: 50px;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
     min-width: 90%;
     max-width: 90%;
     background-color: var(--noteBackground1);
@@ -223,15 +223,15 @@ h1
 .noteColors
 {
     text-align: left;
-    margin-left:20px ;
+    display:inline-flex;;
 }
 
 .cb
 {
-    min-width: 15px;
-    min-height: 15px;
+    min-width: 20px;
+    min-height: 20px;
     margin:1px;
-    margin-top:25px;
+    margin-top:20px;
     border-radius: 10px;
     border-color: var(--sectionBorder);
 }
@@ -256,4 +256,23 @@ h1
 .cb4
 {
     background-color: var(--noteBorder4);
+}
+
+.noteButtons
+{
+    display:inline-block;
+    vertical-align: top;
+    width:100%;
+}
+
+.deleteNote
+{
+    width:12px;
+    display:inline-block;
+    margin-left:320px
+}
+
+.deleteNote:hover
+{
+    cursor: pointer;
 }

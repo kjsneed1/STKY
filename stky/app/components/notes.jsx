@@ -1,7 +1,67 @@
 "use client"
 import {useState} from 'react'
 
-let totalNotes = 0
+let totalNotes = 0;
+let isTypeing = false
+
+export function Note(key)
+{
+    let mouseOn = false
+    const [noteColor,setColor] = useState(1)
+    const [buttonDisplay,setButtonDisplay] = useState({visibility:"hidden"})
+    const [noteVisibility,setNoteVisibility] = useState("inline-block")
+
+    function noteHover()
+    {
+        mouseOn = true
+        if(!isTypeing)
+        {
+            setButtonDisplay({visibility:"visible"})
+        }
+    }
+    function leaveNote()
+    {
+        mouseOn = false
+        if(!isTypeing)
+        {
+            setButtonDisplay({visibility:"hidden"})
+        }
+    }
+
+    function typeIn()
+    {
+        isTypeing=true
+        setButtonDisplay({visibility:"visible"})
+    }
+
+    function typeOut()
+    {
+        isTypeing=false
+        if(!mouseOn)
+        {
+            setButtonDisplay({visibility:"hidden"})
+        }
+    }
+
+    return (
+    <div className="note" key={key} id={key} style={{borderColor:`var(--noteBorder${noteColor})`,display:noteVisibility}} onMouseOver={noteHover} onMouseOut={leaveNote} onClick={()=>setButtonDisplay({visibility:"visible"})}>
+        <div>
+            <p className = "grabber" style={{color:`var(--noteBorder${noteColor})`}}>: : : : : : : : : : : :</p>
+            <img className = "icon deleteNote" src="/icons/xout.svg" alt="Bruh" style={buttonDisplay} onClick={()=>setNoteVisibility("none")}/>
+        </div>
+        <input className = "notetitle" placeholder="Note Title" onFocus={typeIn} onBlur={typeOut}/>
+        <textarea className = "notetext" placeholder="Enter your text here..." onFocus={typeIn} onBlur={typeOut}></textarea>
+        <div className = "noteButtons" style={buttonDisplay}>
+            <div className = "noteColors">
+                <button className='cb cb1' onClick={()=>{setColor(1)}}> </button>
+                <button className='cb cb2' onClick={()=>{setColor(2)}}> </button>
+                <button className='cb cb3' onClick={()=>{setColor(3)}}> </button>
+                <button className='cb cb4' onClick={()=>{setColor(4)}}> </button>
+            </div>
+        </div>
+    </div>
+    )
+}
 
 export function Notes()
 {
@@ -9,31 +69,9 @@ export function Notes()
     const [empty,setEmpty] = useState({})
     const [add,setAdd] = useState({display:"none"})
 
-    function Note(key)
-    {
-        function changeColor(colorNumber)
-        {
-            document.getElementById(key).style.borderColor = window.getComputedStyle(document.documentElement).getPropertyValue(`--noteBorder${colorNumber}`)
-            document.getElementById(key).querySelector('.grabber').style.color = window.getComputedStyle(document.documentElement).getPropertyValue(`--noteBorder${colorNumber}`)
-        }
-        return (
-        <div className="note" key={key} id={key}>
-            <p className = "grabber">: : : : : : : : : : : :</p>
-            <input className = "notetitle" placeholder="Note Title"/>
-            <textarea className = "notetext" placeholder="Enter your text here..."></textarea>
-            <div className = "noteColors">
-                <button className='cb cb1' onClick={()=>changeColor(1)}> </button>
-                <button className='cb cb2' onClick={()=>changeColor(2)}> </button>
-                <button className='cb cb3' onClick={()=>changeColor(3)}> </button>
-                <button className='cb cb4' onClick={()=>changeColor(4)}> </button>
-            </div>
-        </div>
-        )
-    }
-
     function AddNote()
     {
-        setNotesArray([...notesArray,Note(`note${totalNotes}`)])
+        setNotesArray([...notesArray,<Note key={`note${totalNotes}`}/>])
         totalNotes++
     }
 
@@ -51,7 +89,7 @@ export function Notes()
                 <img className="icon plusicon" src="/icons/plus.svg"/>
                 <h2>Click "+" to add a new note.</h2>
             </div>
-    )
+        )
     }
 
     function AddField() 
