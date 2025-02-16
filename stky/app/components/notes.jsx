@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useReducer } from "react";
+import {useState} from "react";
 
 let totalNotes = 0;
 let isTypeing = false;
