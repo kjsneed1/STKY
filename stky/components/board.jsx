@@ -19,34 +19,42 @@ export function Board({ notesObj }) {
     const [empty, setEmpty] = useState({});
     const [add, setAdd] = useState({ display: "none" });
     const [notesDisplay, setNotesDisplay] = useState(
-        notesObj.notesOrder.map((id) => (
-            <Note
-                k={id}
-                key={id}
-                stateObj={stateObj}
-                notesObj={notesObj}
-                color={notesObj.notes[id].color}
-                text={notesObj.notes[id].text}
-                title={notesObj.notes[id].title}
-                updateNotes={updateNotes}
-            />
-        ))
+        notesObj.notesOrder.map((id) => {
+            if (notesObj.notes[id]) {
+                return (
+                    <Note
+                        k={id}
+                        key={id}
+                        stateObj={stateObj}
+                        notesObj={notesObj}
+                        color={notesObj.notes[id].color}
+                        text={notesObj.notes[id].text}
+                        title={notesObj.notes[id].title}
+                        updateNotes={updateNotes}
+                    />
+                );
+            }
+        })
     );
 
     function updateNotes() {
         setNotesDisplay(
-            notesObj.notesOrder.map((id) => (
-                <Note
-                    k={id}
-                    key={id}
-                    stateObj={stateObj}
-                    notesObj={notesObj}
-                    color={notesObj.notes[id].color}
-                    text={notesObj.notes[id].text}
-                    title={notesObj.notes[id].title}
-                    updateNotes={updateNotes}
-                />
-            ))
+            notesObj.notesOrder.map((id) => {
+                if (notesObj.notes) {
+                    return (
+                        <Note
+                            k={id}
+                            key={id}
+                            stateObj={stateObj}
+                            notesObj={notesObj}
+                            color={notesObj.notes[id].color}
+                            text={notesObj.notes[id].text}
+                            title={notesObj.notes[id].title}
+                            updateNotes={updateNotes}
+                        />
+                    );
+                }
+            })
         );
     }
 
@@ -82,7 +90,6 @@ export function Board({ notesObj }) {
     function AddField() {
         const handleClick = () => {
             AddNote();
-            console.log(notesObj);
         };
 
         return (

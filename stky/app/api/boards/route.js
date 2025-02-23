@@ -31,18 +31,6 @@ export function boardValidation(body){
     }
 
     for (let n in body.notes) {
-        if (!body.notes[n].title) {
-            return NextResponse.json(
-                { error: `Please include a valid notes title for '${n}'.` },
-                { status: 422 }
-            );
-        }
-        if (!body.notes[n].text) {
-            return NextResponse.json(
-                { error: `Please include a valid notes text for '${n}'.` },
-                { status: 422 }
-            );
-        }
         if (
             !body.notes[n].color ||
             isNaN(body.notes[n].color) ||
