@@ -3,6 +3,9 @@ import { useState } from "react";
 import { Note } from "./note";
 import downloadObjectAsJson from "@/util/downloadObjectAsJson";
 import makeUUID from "@/util/makeUUID";
+import { Title } from "./title";
+import { PostSave } from "./postSave";
+import { PatchSave } from "./patchSave";
 
 function downloadJSON() {
     const newObj = {
@@ -13,8 +16,15 @@ function downloadJSON() {
     downloadObjectAsJson(newObj, "download");
 }
 
-export function Board({ notesObj }) {
-    const stateObj = { isTypeing: false };
+export function Board({ notesObj, edit }) {
+
+    const [stateObj,stateSetter] = useState({ isTyping: false, changed: false })
+    function setState(obj = {}) {
+        stateSetter({
+            ...stateObj,
+            ...obj
+        })
+    }
 
     const [empty, setEmpty] = useState({});
     const [add, setAdd] = useState({ display: "none" });
@@ -36,6 +46,17 @@ export function Board({ notesObj }) {
             }
         })
     );
+
+    let save;
+    const id = notesObj.id;
+
+    if (edit) {
+        save = (
+            <PatchSave notesObj={notesObj} id={id} stateObj={stateObj} setState={setState}/>
+        );
+    } else {
+        save = <PostSave notesObj={notesObj} stateObj={stateObj} setState={setState}/>;
+    }
 
     function updateNotes() {
         setNotesDisplay(
@@ -104,10 +125,16 @@ export function Board({ notesObj }) {
     }
 
     return (
-        <div>
+        <>
+        <div id="boardTop">
+                <Title notesObj={notesObj} stateObj={stateObj} setState = {setState} />
+                {save}
+            </div>
+        <div id="board">
             {notesDisplay}
             <EmptyField />
             <AddField />
         </div>
+        </>
     );
 }

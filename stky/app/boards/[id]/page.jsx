@@ -1,3 +1,5 @@
+//Board edit page!
+
 import { Board } from "@/components/board";
 import { PatchSave } from "@/components/patchSave";
 import { Title } from "@/components/title";
@@ -24,12 +26,8 @@ export default async function boardPage({ params }) {
 
     return (
         <>
-            <div id="boardTop">
-                <Title notesObj={notesObj} />
-                <PatchSave notesObj={notesObj} />
-            </div>
-            <div id="board">
-                <Board notesObj={notesObj} />
+            <div>
+                <Board notesObj={notesObj} edit = {true}/>
             </div>
         </>
     );

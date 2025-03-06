@@ -7,7 +7,7 @@
     --iconGrayFilter: invert(79%) sepia(0%) saturate(1820%) hue-rotate(207deg)
         brightness(108%) contrast(91%); /* #d3d3d3 - should be the same as textGray*/
     --buttonBackground: #2e2e2e;
-    --buttonHover: #2b2b2b;
+    --buttonHover: #404040;
     --noteBackground1: #2b2b2b;
     --noteBackground2: #2b2b2b;
     --noteBackground3: #2b2b2b;
@@ -43,6 +43,9 @@ header {
     display: inline-flex;
     min-width: 100vw;
     user-select: none;
+    position:sticky;
+    top:0;
+    z-index:100;
 }
 header div {
     min-width: 25%;
@@ -74,19 +77,20 @@ h1 {
 
 /* Title Styleing */
 #boardTop {
+    width:100vw;
     display:block;
     text-align: center;
 }
 
 #boardTitle {
-    margin-top: 20px;
+    margin-top:20px;
     padding-left: 10px;
     padding-right: 10px;
     width: 600px;
     height: 60px;
     color: var(--textGray);
-    background:none;
-    border: none;
+    background-color:var(--sectionBackground);
+    border: solid 2px var(--sectionBorder);
     border-radius: 8px;
     font-size: 28pt;
     text-align: center;
@@ -100,7 +104,7 @@ h1 {
 #board {
     background-color: var(--sectionBackground);
     margin: 10px;
-    margin-top: 30px;
+    margin-top: 20px;
     border: solid 2px var(--sectionBorder);
     min-height: 400px;
     min-width: fit-content;
@@ -131,14 +135,12 @@ h1 {
     background-color: var(--buttonBackground);
 }
 
-#emptyfield:hover {
-    background-color: var(--buttonHover);
-    cursor: pointer;
+#emptyfield:hover{
+    background-color: var(--sectionBorder);
 }
 
-#plusfield:hover {
-    background-color: var(--buttonHover);
-    cursor: pointer;
+#plusfield:hover{
+    background-color: var(--sectionBorder);
 }
 
 #emptyfield h2 {
@@ -160,15 +162,14 @@ h1 {
     background-color: var(--sectionBackground);
     color:var(--textGray);
     border: solid 2px var(--sectionBorder);
-    border-radius: 3px;
+    border-radius: 5px;
     min-height: 30px;
     min-width: 80px;
     margin: 20px;
+    margin-bottom: 0px;
     font-size: 12pt;
     padding:8px;
     vertical-align: top;
-    position:absolute;
-    right:0;
 }
 
 #saveIcon{
@@ -177,7 +178,24 @@ h1 {
 }
 
 #boardSave:hover{
-    background-color: var(--buttonHover);
+    background-color: var(--sectionBorder);
+    cursor:pointer;
+}
+
+#boardSave:active{
+    background-color: var(--buttonBackground);
+}
+
+#saveResponse{
+    max-width:300px;
+    display: inline-block;
+    margin-top: 30px;
+}
+
+#saveSect{
+    position:absolute;
+    right:0;
+    display: inline-block;
 }
 
 /* Note styling */

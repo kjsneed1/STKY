@@ -1,7 +1,10 @@
 "use client";
-export function Title({ notesObj }) {
+export function Title({ notesObj, stateObj, setState }) {
     function typeOut() {
-        notesObj.title = document.getElementById(`boardTitle`).value;
+        if (notesObj.title != document.getElementById(`boardTitle`).value) {
+            notesObj.title = document.getElementById(`boardTitle`).value;
+            setState({ changed: true });
+        }
     }
 
     return (

@@ -1,3 +1,5 @@
+//Board create page!
+
 import { Board } from "@/components/board";
 import { Title } from "@/components/title";
 import { PostSave } from "@/components/postSave";
@@ -7,14 +9,11 @@ export default function boardPage() {
         notesOrder: [],
         notes: {},
     };
+    const stateObj = { isTyping: false, changed: false };
     return (
         <>
-            <div id="boardTop">
-                <Title notesObj={notesObj} />
-                <PostSave notesObj={notesObj} />
-            </div>
-            <div id="board">
-                <Board notesObj={notesObj} />
+            <div>
+                <Board notesObj={notesObj} stateObj={stateObj} edit = {false}/>
             </div>
         </>
     );
