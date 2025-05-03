@@ -17,70 +17,74 @@ function downloadJSON() {
 }
 
 export function Board({ notesObj, edit }) {
-
-    const [stateObj,stateSetter] = useState({ isTyping: false, changed: false })
+    const [stateObj, stateSetter] = useState({
+        isTyping: false,
+        changed: false,
+    });
     function setState(obj = {}) {
         stateSetter({
             ...stateObj,
-            ...obj
-        })
+            ...obj,
+        });
     }
 
     const [empty, setEmpty] = useState({});
     const [add, setAdd] = useState({ display: "none" });
-    const [notesDisplay, setNotesDisplay] = useState(
-        notesObj.notesOrder.map((id) => {
-            if (notesObj.notes[id]) {
-                return (
-                    <Note
-                        k={id}
-                        key={id}
-                        stateObj={stateObj}
-                        notesObj={notesObj}
-                        color={notesObj.notes[id].color}
-                        text={notesObj.notes[id].text}
-                        title={notesObj.notes[id].title}
-                        updateNotes={updateNotes}
-                    />
-                );
-            }
-        })
-    );
+    const [localNotes, setLocalNotes] = useState({ ...notesObj });
+
+    function NotesDisplay({ notesObj }) {
+        return (
+            <>
+                {notesObj.notesOrder.map((id) => {
+                    if (notesObj.notes[id]) {
+                        return (
+                            <Note
+                                k={id}
+                                key={id}
+                                stateObj={stateObj}
+                                setState={setState}
+                                notesObj={notesObj}
+                                color={notesObj.notes[id].color}
+                                text={notesObj.notes[id].text}
+                                title={notesObj.notes[id].title}
+                            />
+                        );
+                    }
+                })}
+            </>
+        );
+    }
 
     let save;
     const id = notesObj.id;
 
     if (edit) {
         save = (
-            <PatchSave notesObj={notesObj} id={id} stateObj={stateObj} setState={setState}/>
+            <PatchSave
+                notesObj={localNotes}
+                id={id}
+                stateObj={stateObj}
+                setState={setState}
+            />
         );
     } else {
-        save = <PostSave notesObj={notesObj} stateObj={stateObj} setState={setState}/>;
+        save = (
+            <PostSave
+                notesObj={localNotes}
+                stateObj={stateObj}
+                setState={setState}
+            />
+        );
     }
 
     function updateNotes() {
-        setNotesDisplay(
-            notesObj.notesOrder.map((id) => {
-                if (notesObj.notes) {
-                    return (
-                        <Note
-                            k={id}
-                            key={id}
-                            stateObj={stateObj}
-                            notesObj={notesObj}
-                            color={notesObj.notes[id].color}
-                            text={notesObj.notes[id].text}
-                            title={notesObj.notes[id].title}
-                            updateNotes={updateNotes}
-                        />
-                    );
-                }
-            })
-        );
+        setLocalNotes({ ...notesObj });
+        console.log(notesObj);
     }
 
     function AddNote() {
         let noteId = makeUUID(12, "abcdef1234567890");
+        console.log(noteId);
 
         notesObj.notes[noteId] = {
             id: "new",
@@ -91,6 +95,8 @@ export function Board({ notesObj, edit }) {
         notesObj.notesOrder.push(noteId);
 
         updateNotes();
+
+        setState({ changed: true });
     }
 
     function EmptyField() {
@@ -126,15 +132,19 @@ export function Board({ notesObj, edit }) {
 
     return (
         <>
-        <div id="boardTop">
-                <Title notesObj={notesObj} stateObj={stateObj} setState = {setState} />
+            <div id="boardTop">
+                <Title
+                    notesObj={notesObj}
+                    stateObj={stateObj}
+                    setState={setState}
+                />
                 {save}
             </div>
-        <div id="board">
-            {notesDisplay}
-            <EmptyField />
-            <AddField />
-        </div>
+            <div id="board">
+                <NotesDisplay notesObj={localNotes} />
+                <EmptyField />
+                <AddField />
+            </div>
         </>
     );
 }

@@ -3,9 +3,7 @@
 import { useState } from "react";
 
 export function PatchSave({ notesObj, id, stateObj, setState }) {
-
-    let disabled = 
-        `#boardSave{
+    let disabled = `#boardSave{
             background-color:var(--background);
             border-color:var(--buttonBackground);
             color:#404040;
@@ -25,8 +23,9 @@ export function PatchSave({ notesObj, id, stateObj, setState }) {
             filter: invert(22%) sepia(0%) saturate(1%) hue-rotate(172deg) brightness(101%) contrast(89%);
         }`;
 
-    if(stateObj.changed){
-        disabled = ``}
+    if (stateObj.changed) {
+        disabled = ``;
+    }
 
     async function save() {
         if (stateObj.changed) {
@@ -40,7 +39,7 @@ export function PatchSave({ notesObj, id, stateObj, setState }) {
                     body: JSON.stringify(notesObj),
                 }
             );
-            setState({changed:false})
+            setState({ changed: false });
         }
     }
 

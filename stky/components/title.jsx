@@ -1,5 +1,5 @@
 "use client";
-export function Title({ notesObj, stateObj, setState }) {
+export function Title({ notesObj, setState }) {
     function typeOut() {
         if (notesObj.title != document.getElementById(`boardTitle`).value) {
             notesObj.title = document.getElementById(`boardTitle`).value;

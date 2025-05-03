@@ -7,7 +7,8 @@ export function Note({
     color = 1,
     title,
     text,
-    updateNotes,
+    setState,
+    notesInToOut,
 }) {
     let mouseOn = false;
     const [noteColor, setColor] = useState(color);
@@ -17,24 +18,31 @@ export function Note({
 
     function noteHover() {
         mouseOn = true;
-        if (!stateObj.isTypeing) {
+        if (!stateObj.isTyping) {
             setButtonDisplay({ visibility: "visible" });
         }
     }
     function leaveNote() {
         mouseOn = false;
-        if (!stateObj.isTypeing) {
+        if (!stateObj.isTyping) {
             setButtonDisplay({ visibility: "hidden" });
         }
     }
 
     function typeIn() {
-        stateObj.isTypeing = true;
+        stateObj.isTyping = true;
         setButtonDisplay({ visibility: "visible" });
     }
 
     function typeOut() {
-        stateObj.isTypeing = false;
+        stateObj.isTyping = false;
+
+        if(notesObj.notes[k].title != document.getElementById(`${k}title`).value){
+            setState({changed:true})
+        }
+        if(notesObj.notes[k].text != document.getElementById(`${k}text`).value){
+            setState({changed:true})
+        }
 
         notesObj.notes[k].title = document.getElementById(`${k}title`).value;
         notesObj.notes[k].text = document.getElementById(`${k}text`).value;
@@ -46,7 +54,18 @@ export function Note({
 
     function handleDelete() {
         notesObj.notesOrder = notesObj.notesOrder.filter((key) => key != k);
-        updateNotes();
+        setState({ changed: true });
+    }
+
+    function changeNoteColor(color = 1){
+        if(color < 1 || color > 4){
+            color = 1
+        }
+        setColor(color);
+        if(notesObj.notes[k].color != color){
+            setState({ changed: true });
+        }
+        notesObj.notes[k].color = color;
     }
 
     return (
@@ -93,34 +112,22 @@ export function Note({
                 <div className="noteColors">
                     <button
                         className="cb cb1"
-                        onClick={() => {
-                            setColor(1);
-                            notesObj.notes[k].color = 1;
-                        }}>
+                        onClick={() => changeNoteColor(1)}>
                         {" "}
                     </button>
                     <button
                         className="cb cb2"
-                        onClick={() => {
-                            setColor(2);
-                            notesObj.notes[k].color = 2;
-                        }}>
+                        onClick={() => changeNoteColor(2)}>
                         {" "}
                     </button>
                     <button
                         className="cb cb3"
-                        onClick={() => {
-                            setColor(3);
-                            notesObj.notes[k].color = 3;
-                        }}>
+                        onClick={() => changeNoteColor(3)}>
                         {" "}
                     </button>
                     <button
                         className="cb cb4"
-                        onClick={() => {
-                            setColor(4);
-                            notesObj.notes[k].color = 4;
-                        }}>
+                        onClick={() => changeNoteColor(4)}>
                         {" "}
                     </button>
                 </div>
