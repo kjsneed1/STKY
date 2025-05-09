@@ -186,12 +186,6 @@ h1 {
     background-color: var(--buttonBackground);
 }
 
-#saveResponse{
-    max-width:300px;
-    display: inline-block;
-    margin-top: 30px;
-}
-
 #saveSect{
     position:absolute;
     right:0;

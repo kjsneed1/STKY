@@ -20,6 +20,7 @@ export function Board({ notesObj, edit }) {
     const [stateObj, stateSetter] = useState({
         isTyping: false,
         changed: false,
+        titleFilled: true,
     });
     function setState(obj = {}) {
         stateSetter({
@@ -55,26 +56,31 @@ export function Board({ notesObj, edit }) {
         );
     }
 
-    let save;
     const id = notesObj.id;
 
+    let Save;
+
     if (edit) {
-        save = (
-            <PatchSave
-                notesObj={localNotes}
-                id={id}
-                stateObj={stateObj}
-                setState={setState}
-            />
-        );
+        Save = ({stateObj}) => {
+            return (
+                <PatchSave
+                    notesObj={localNotes}
+                    id={id}
+                    stateObj={stateObj}
+                    setState={setState}
+                />
+            );
+        }
     } else {
-        save = (
-            <PostSave
-                notesObj={localNotes}
-                stateObj={stateObj}
-                setState={setState}
-            />
-        );
+        Save = ({stateObj}) => {
+            return (
+                <PostSave
+                    notesObj={localNotes}
+                    stateObj={stateObj}
+                    setState={setState}
+                />
+            );
+        }
     }
 
     function updateNotes() {
@@ -134,11 +140,11 @@ export function Board({ notesObj, edit }) {
         <>
             <div id="boardTop">
                 <Title
-                    notesObj={notesObj}
+                    notesObj={localNotes}
                     stateObj={stateObj}
                     setState={setState}
                 />
-                {save}
+                <Save stateObj={stateObj}/>
             </div>
             <div id="board">
                 <NotesDisplay notesObj={localNotes} />

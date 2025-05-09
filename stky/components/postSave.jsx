@@ -19,7 +19,6 @@ export function PostSave({ notesObj }) {
 
     return (
         <div id="saveSect">
-            <div id="saveResponse">Saved!</div>
             <button id="boardSave" onClick={save}>
                 <img id="saveIcon" className="icon" src="/icons/save.svg" />
                 Save

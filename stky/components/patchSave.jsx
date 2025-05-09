@@ -23,7 +23,7 @@ export function PatchSave({ notesObj, id, stateObj, setState }) {
             filter: invert(22%) sepia(0%) saturate(1%) hue-rotate(172deg) brightness(101%) contrast(89%);
         }`;
 
-    if (stateObj.changed) {
+    if (stateObj.changed && stateObj.titleFilled) {
         disabled = ``;
     }
 
@@ -41,12 +41,12 @@ export function PatchSave({ notesObj, id, stateObj, setState }) {
             );
             setState({ changed: false });
         }
+        else{console.log(stateObj.titleFilled)}
     }
 
     return (
         <div id="saveSect">
             <style>{disabled}</style>
-            <div id="saveResponse">Saved!</div>
             <button id="boardSave" onClick={save}>
                 <img id="saveIcon" className="icon" src="/icons/save.svg" />
                 Save
