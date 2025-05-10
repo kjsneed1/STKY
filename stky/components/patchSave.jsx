@@ -28,7 +28,7 @@ export function PatchSave({ notesObj, id, stateObj, setState }) {
     }
 
     async function save() {
-        if (stateObj.changed) {
+        if (stateObj.changed && stateObj.titleFilled) {
             const sendNotes = await fetch(
                 `http://localhost:3000/api/boards/${id}`,
                 {
@@ -41,7 +41,6 @@ export function PatchSave({ notesObj, id, stateObj, setState }) {
             );
             setState({ changed: false });
         }
-        else{console.log(stateObj.titleFilled)}
     }
 
     return (

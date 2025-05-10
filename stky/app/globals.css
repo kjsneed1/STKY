@@ -217,6 +217,9 @@ h1 {
     cursor: grab;
     max-height: 10px;
 }
+.note .grabber:active{
+    cursor: grabbing;
+}
 
 .note .notetitle {
     display: inline-block;
@@ -301,4 +304,18 @@ h1 {
 
 .deleteNote:hover {
     cursor: pointer;
+}
+
+/*---- FLoater ----*/
+
+.floater{
+    width: 200px;
+    height: 200px;
+    background-color: var(--noteBackground1);
+    border: 2px solid var(--noteBorder1);
+    border-radius: 10px;
+    color:var(--noteBorder1);
+    font-size: small;
+    opacity: 40%;
+    position: absolute;
 }

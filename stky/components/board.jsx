@@ -6,6 +6,7 @@ import makeUUID from "@/util/makeUUID";
 import { Title } from "./title";
 import { PostSave } from "./postSave";
 import { PatchSave } from "./patchSave";
+import { Floater } from "./floater";
 
 function downloadJSON() {
     const newObj = {
@@ -20,7 +21,7 @@ export function Board({ notesObj, edit }) {
     const [stateObj, stateSetter] = useState({
         isTyping: false,
         changed: false,
-        titleFilled: true,
+        titleFilled: true
     });
     function setState(obj = {}) {
         stateSetter({
@@ -28,6 +29,8 @@ export function Board({ notesObj, edit }) {
             ...obj,
         });
     }
+
+    const [grabbing, setGrabbing] = useState(false)
 
     const [empty, setEmpty] = useState({});
     const [add, setAdd] = useState({ display: "none" });
@@ -48,6 +51,9 @@ export function Board({ notesObj, edit }) {
                                 color={notesObj.notes[id].color}
                                 text={notesObj.notes[id].text}
                                 title={notesObj.notes[id].title}
+                                updateNotes={updateNotes}
+                                setGrabbing={setGrabbing}
+                                grabbing={grabbing}
                             />
                         );
                     }
@@ -83,14 +89,12 @@ export function Board({ notesObj, edit }) {
         }
     }
 
-    function updateNotes() {
+    function updateNotes(notesObj) {
         setLocalNotes({ ...notesObj });
-        console.log(notesObj);
     }
 
-    function AddNote() {
+    function AddNote(notesObj) {
         let noteId = makeUUID(12, "abcdef1234567890");
-        console.log(noteId);
 
         notesObj.notes[noteId] = {
             id: "new",
@@ -100,16 +104,16 @@ export function Board({ notesObj, edit }) {
         };
         notesObj.notesOrder.push(noteId);
 
-        updateNotes();
+        updateNotes(notesObj);
 
         setState({ changed: true });
     }
 
-    function EmptyField() {
+    function EmptyField({notesObj}) {
         const handleClick = () => {
             setEmpty({ display: "none" });
             setAdd({ display: "inline-block" });
-            AddNote();
+            AddNote(notesObj);
         };
 
         return (
@@ -120,9 +124,9 @@ export function Board({ notesObj, edit }) {
         );
     }
 
-    function AddField() {
+    function AddField({notesObj}) {
         const handleClick = () => {
-            AddNote();
+            AddNote(notesObj);
         };
 
         return (
@@ -136,6 +140,16 @@ export function Board({ notesObj, edit }) {
         );
     }
 
+    function GrabberActive({grabbing}){
+        if(grabbing){
+            const grabbingStyle =`#board{cursor:grabbing;} .note .grabber{cursor:grabbing;}` 
+            return(
+            <style>
+                {grabbingStyle}
+            </style>
+        )}
+    }
+
     return (
         <>
             <div id="boardTop">
@@ -146,10 +160,11 @@ export function Board({ notesObj, edit }) {
                 />
                 <Save stateObj={stateObj}/>
             </div>
-            <div id="board">
+            <div id="board" onMouseUp={() => setGrabbing(false)}>
+                <GrabberActive grabbing={grabbing}/>
                 <NotesDisplay notesObj={localNotes} />
-                <EmptyField />
-                <AddField />
+                <EmptyField notesObj={localNotes}/>
+                <AddField notesObj={localNotes}/>
             </div>
         </>
     );

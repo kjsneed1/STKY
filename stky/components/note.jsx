@@ -8,7 +8,9 @@ export function Note({
     title,
     text,
     setState,
-    notesInToOut,
+    updateNotes,
+    setGrabbing,
+    grabbing
 }) {
     let mouseOn = false;
     const [noteColor, setColor] = useState(color);
@@ -18,7 +20,7 @@ export function Note({
 
     function noteHover() {
         mouseOn = true;
-        if (!stateObj.isTyping) {
+        if (!stateObj.isTyping && !grabbing) {
             setButtonDisplay({ visibility: "visible" });
         }
     }
@@ -55,6 +57,7 @@ export function Note({
     function handleDelete() {
         notesObj.notesOrder = notesObj.notesOrder.filter((key) => key != k);
         setState({ changed: true });
+        updateNotes(notesObj);
     }
 
     function changeNoteColor(color = 1){
@@ -81,7 +84,8 @@ export function Note({
             <div>
                 <p
                     className="grabber"
-                    style={{ color: `var(--noteBorder${noteColor})` }}>
+                    style={{ color: `var(--noteBorder${noteColor})` }}
+                    onMouseDown={() => {setGrabbing(true)}}>
                     : : : : : : : : : : : :
                 </p>
                 <img
